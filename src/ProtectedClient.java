@@ -10,6 +10,8 @@ public class ProtectedClient
 		DataOutputStream out = new DataOutputStream(outStream);
 
 		// IMPLEMENT THIS FUNCTION.
+		
+
 
 		out.flush();
 	}
