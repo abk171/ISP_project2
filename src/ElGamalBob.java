@@ -2,12 +2,25 @@ import java.io.*;
 import java.net.*;
 import java.security.*;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 
 public class ElGamalBob
 {
 	private static boolean verifySignature(	BigInteger y, BigInteger g, BigInteger p, BigInteger a, BigInteger b, String message)
 	{
 		// IMPLEMENT THIS FUNCTION;
+		try {
+			BigInteger v1 = y.modPow(a, p).multiply(a.modPow(b, p)).mod(p);
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hash = md.digest(message.getBytes());
+			BigInteger hashInt = new BigInteger(1, hash);
+			BigInteger v2 = g.modPow(hashInt, p);
+
+			return v1.equals(v2);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public static void main(String[] args) throws Exception 
